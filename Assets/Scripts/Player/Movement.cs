@@ -20,6 +20,7 @@ public class Movement : MonoBehaviour {
     [Space]
 
     [Header("Booleans")]
+    [SerializeField] private bool isCrouch;
     [SerializeField] private bool groundTouch;
 
     [Space]
@@ -66,11 +67,22 @@ public class Movement : MonoBehaviour {
                 : 0
         );
         #endregion
+
+        #region Animation crouch
+        if (coll.onGround && x == 0 && Input.GetButton("Vertical")) {
+            anim.SetBool("isCrouch", true);
+            isCrouch = true;
+        } else {
+            anim.SetBool("isCrouch", false);
+            isCrouch = false;
+        }
+        #endregion
     }
     #region Walk method
     private void Walk (Vector2 dir, float x) {
-        rb.velocity = new Vector2(dir.x * speed, rb.velocity.y);
-        RotatePlayer(x);
+        if (!isCrouch)
+            rb.velocity = new Vector2(dir.x * speed, rb.velocity.y);
+            RotatePlayer(x);
     }
     #endregion
 
