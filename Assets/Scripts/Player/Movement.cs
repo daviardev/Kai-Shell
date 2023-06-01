@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Movement : MonoBehaviour {
     #region Variables player
+    [HideInInspector]
+    public Animator anim;
     private Collision coll;
 
     [HideInInspector]
@@ -28,6 +30,7 @@ public class Movement : MonoBehaviour {
 
     void Start () {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         coll = GetComponent<Collision>();
     }
 
@@ -54,6 +57,14 @@ public class Movement : MonoBehaviour {
         }
 
         if (!coll.onGround && groundTouch) groundTouch = false;
+        #endregion
+
+        #region Animation walk
+        anim.SetFloat("velX",
+            (x != 0 && coll.onGround)
+                ? 1
+                : 0
+        );
         #endregion
     }
     #region Walk method

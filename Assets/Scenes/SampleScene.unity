@@ -294,8 +294,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fdfc4b280e3ae74b81e05915eb090e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   rb: {fileID: 0}
-  speed: 8
+  speed: 6
   jumpForce: 14
   groundTouch: 0
   jumpParticle: {fileID: 486790894}
