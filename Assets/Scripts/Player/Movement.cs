@@ -20,6 +20,7 @@ public class Movement : MonoBehaviour {
     [Space]
 
     [Header("Booleans")]
+    [SerializeField] private bool isRun;
     [SerializeField] private bool isCrouch;
     [SerializeField] private bool groundTouch;
 
@@ -43,6 +44,7 @@ public class Movement : MonoBehaviour {
         Vector2 dir = new Vector2(x, y);
 
         Walk(dir, x);
+        Run(x);
         #endregion
 
         #region Jump and use better jump
@@ -77,12 +79,32 @@ public class Movement : MonoBehaviour {
             isCrouch = false;
         }
         #endregion
+
+        #region Animation run
+        anim.SetBool("isRun",
+            (x != 0 && coll.onGround && isRun)
+                ? true
+                : false
+        );
+        #endregion
     }
     #region Walk method
     private void Walk (Vector2 dir, float x) {
         if (!isCrouch)
             rb.velocity = new Vector2(dir.x * speed, rb.velocity.y);
             RotatePlayer(x);
+    }
+    #endregion
+
+    #region Run method
+    private void Run (float x) {
+        if (Input.GetButton("Fire1")) {
+            isRun = true;
+            speed = 8.5f;
+        } else {
+            isRun = false;
+            speed = 6f;
+        }
     }
     #endregion
 
