@@ -15,19 +15,19 @@ public class Collision : MonoBehaviour {
     [Space]
 
     [Header("Collision")]
-    [SerializeField] private float collRadius = .25f;
+    [SerializeField] private Vector2 collSize = new Vector2(1f, .5f);
     public Vector2 bottomOffset;
     #endregion
 
     void Update () {
         #region Check collision
-        onGround = Physics2D.OverlapCircle((Vector2) transform.position + bottomOffset, collRadius, groundLayer);
+        onGround = Physics2D.OverlapBox((Vector2) transform.position + bottomOffset, collSize, 0f, groundLayer);
         #endregion
     }
     #region Draw gizmos
     void OnDrawGizmos () {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere((Vector2) transform.position + bottomOffset, collRadius);
+        Gizmos.DrawWireCube((Vector2) transform.position + bottomOffset, collSize);
     }
     #endregion
 }
