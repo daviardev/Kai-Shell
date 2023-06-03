@@ -14,6 +14,7 @@ public class Movement : MonoBehaviour {
     [Space]
 
     [Header("Stats")]
+    public float fall;
     public float speed;
     public float jumpForce;
 
@@ -86,6 +87,20 @@ public class Movement : MonoBehaviour {
                 ? true
                 : false
         );
+        #endregion
+
+        #region Animation jump
+        anim.SetBool("IsGround",
+            (coll.onGround)
+                ? true
+                : false
+        );
+        #endregion
+
+        #region Animation falling
+        fall = rb.velocity.y;
+
+        if (fall != 0 || fall == 0) anim.SetFloat("velY", fall);
         #endregion
     }
     #region Walk method
